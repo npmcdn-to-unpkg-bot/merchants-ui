@@ -3,14 +3,18 @@ require('styles/App.css');
 
 import React from 'react';
 
-let yeomanImage = require('../images/yeoman.png');
+let biyaheroesLogo = require('../images/biyaheroes.png');
 
 class AppComponent extends React.Component {
   render() {
     return (
       <div className="index">
-        <img src={yeomanImage} alt="Yeoman Generator" />
-        <div className="notice">Please edit <code>src/components/Main.js</code> to get started!</div>
+        <img src={biyaheroesLogo}/>
+        <div className="notice">
+          <h5>Log In</h5>
+          <input type="text" placeholder="Hello"/>
+          <input type="text" placeholder="Hello"/>
+        </div>
       </div>
     );
   }
