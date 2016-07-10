@@ -3,9 +3,9 @@ import { Link } from 'react-router';
 
 let biyaheroesLogo = require('../images/biyaheroes.png');
 
-export default class Login extends Component {
-    render() {
-        return (
+var HelloMessage = React.createClass({
+  render: function() {
+    return (
             <div className="container">
                 <div className="row">
                     <form className="log-in-form">
@@ -39,6 +39,33 @@ export default class Login extends Component {
                     </form>
                 </div>
             </div>
-        )
+            )
+  }
+});
+
+
+export default class ForgotPassword extends Component {
+    render() {
+        return (
+        <div className="container">
+            <div className="row">
+           <form className="log-in-form center">
+                <div className="form-group">
+                    <h3>Forgot Password</h3>
+                    <hr/>
+                    <div className="form-group">
+                    <label>New Password:</label>
+                    <input type="email" class="form-control" id="inputEmail" placeholder="New Password"/>
+                    </div>
+                </div>
+                <div className="form-group">
+                     <label>Retype Password:</label>
+                    <input type="password" class="form-control" id="inputPassword" placeholder="Retype Password"/>
+                    <HelloMessage/>
+                </div>
+            </form>
+            </div>
+        </div>
+        );
     }
 }

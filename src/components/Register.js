@@ -4,51 +4,52 @@ import { Link } from 'react-router';
 
 let biyaheroesLogo = require('../images/biyaheroes.png');
 
+var FirstName = React.createClass({
+    render: function(){
+        return (
+            <form className="form-horizontal">
+                <div className="form-group">
+                    <label for="inputEmail" className="control-label col-xs-2">Email</label>
+                    <div className="col-xs-10">
+                        <input type="email" className="form-control" id="inputEmail" placeholder="Email"/>
+                    </div>
+                </div>
+                <div className="form-group">
+                    <label for="inputPassword" className="control-label col-xs-2">Password</label>
+                    <div className="col-xs-10">
+                        <input type="password" className="form-control" id="inputPassword" placeholder="Password"/>
+                    </div>
+                </div>
+                <div className="form-group">
+                    <div className="col-xs-offset-2 col-xs-10">
+                        <div className="checkbox">
+                            <label><input type="checkbox"/> Remember me</label>
+                        </div>
+                    </div>
+                </div>
+                <div className="form-group">
+                    <div className="col-xs-offset-2 col-xs-10">
+                        <button type="submit" className="btn btn-primary">Login</button>
+                    </div>
+                </div>
+            </form>
+        )
+    }
+})
+
 
 export default class Register extends Component {
     render() {
         return (
-            <form className="log-in-form center">
-                
-                    <h3>Register</h3>
-                    <img src={biyaheroesLogo}/>
-                <div className="form-group">
-                    <label>First Name:</label>
-                    <input type="email" class="form-control" id="inputEmail" placeholder="First Name"/>
+            <div className="container">
+                <div className="row">
+                    <form role="form">
+                        <FirstName />
+                    </form>
                 </div>
-                <div className="form-group">
-                     <label>Lastt Name:</label>
-                    <input type="password" class="form-control" id="inputPassword" placeholder="Last Name"/>
-                </div>
-
-                <div className="form-group">
-                     <label>Email:</label>
-                    <input type="password" class="form-control" id="inputPassword" placeholder="Email"/>
-                </div>
-
-                <div className="form-group">
-                     <label>Username:</label>
-                    <input type="password" class="form-control" id="inputPassword" placeholder="Username"/>
-                </div>
-
-                <div className="form-group">
-                     <label>Password:</label>
-                    <input type="password" class="form-control" id="inputPassword" placeholder="Password"/>
-                </div>
-
-                <div className="form-group">
-                     <label>Retype Password:</label>
-                    <input type="password" class="form-control" id="inputPassword" placeholder="Retype Password"/>
-                </div>
-
-
-                <Link to="login">
-                    <button type="submit" className="btn btn-primary">Login</button>
-                </Link>
-                <Link to="register">
-                    <button type="submit" className="btn btn-primary">Register</button>
-                </Link>
-            </form>
+            </div>
         )
     }
 }
+
+
