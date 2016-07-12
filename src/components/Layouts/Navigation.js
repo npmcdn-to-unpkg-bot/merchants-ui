@@ -27,8 +27,23 @@ export default class Navigation extends Component {
                                         </Link>
                                     </li>
                                     <li>
-                                        <Link to="add-merchant">
-                                            <label>Add Merchant</label>
+                                        <Link to="merchants">
+                                            <label>Merchants</label>
+                                        </Link>
+                                    </li>
+                                    <li>
+                                        <Link to="store">
+                                            <label>Store</label>
+                                        </Link>
+                                    </li>
+                                    <li>
+                                        <Link to="items">
+                                            <label>Items</label>
+                                        </Link>
+                                    </li>
+                                    <li>
+                                        <Link to="stocks">
+                                            <label>Stocks</label>
                                         </Link>
                                     </li>
                                 </ul>
