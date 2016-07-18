@@ -61,11 +61,6 @@ h1.title {
 	font-weight: 400; 
 }
 
-hr{
-	width: 10%;
-	color: #fff;
-}
-
 .form-group{
 	margin-bottom: 15px;
 }
@@ -130,14 +125,13 @@ textarea {
   margin: 5px;
 }
 
-.input-tags {
+li.input-tags {
   display: inline;
-  background-color: lightblue;
-  padding: 10px;
   margin: 5px 10px;
   float: right;
 }
 
-.input-tags:last-child {
-  float:right;
+.tags-button {
+  margin: 0 10px;
 }
+

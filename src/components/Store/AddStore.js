@@ -5,9 +5,9 @@ var TodoBox = React.createClass({
 	getInitialState: function () {
 		return {
 			data: [
-				{"id":"00001","task":"Tag 1","complete":"false"},
-				{"id":"00002","task":"Tag 2","complete":"false"},
-                {"id":"00003","task":"Tag 3","complete":"false"}
+				{'id':'00001','task':'Tag 1','complete':'false'},
+				{'id':'00002','task':'Tag 2','complete':'false'},
+                {'id':'00003','task':'Tag 3','complete':'false'}
 			]
 		};
 	},
@@ -46,8 +46,11 @@ var TodoBox = React.createClass({
                 <div className="col-md-4">
                     <TodoForm onTaskSubmit={this.handleSubmit} />
                 </div>
-                <div className="col-md-4">
-                    <TodoList data={this.state.data} removeNode={this.handleNodeRemoval} toggleComplete={this.handleToggleComplete} />
+                <div className="col-md-8">
+                    <TodoList 
+                        data={this.state.data} 
+                        removeNode={this.handleNodeRemoval} 
+                        toggleComplete={this.handleToggleComplete} />
                 </div>
             </div>
 		);
@@ -98,19 +101,21 @@ var TodoItem = React.createClass({
 		
 	},
 	render: function() {
-		var classes = 'list-group-item clearfix';
+		var classes = 'input-tags list-group-item clearfix';
 		if (this.props.complete === 'true') {
-			classes = classes + ' list-group-item-success';
+			classes = classes + 'input-tags list-group-item-success';
 		}
 		return (
 			<li className={classes}>
 				{this.props.task}
-				<div className="pull-right" role="group">
-					<button 
+				<div className="pull-right tags-button" role="group">
+					{/*<button 
                         type="button" 
                         className="btn btn-xs btn-success img-circle" 
                         onClick={this.toggleComplete}>&#x2713;
                     </button>
+                    // Check Button
+                     */}
                      <button 
                         type="button" 
                         className="btn btn-xs btn-danger img-circle" 
@@ -141,7 +146,7 @@ var TodoForm = React.createClass({
 				<div className="clearfix">
 					<form className="todoForm form-horizontal" onSubmit={this.doSubmit}>
 						<div className="form-group">
-							<label htmlFor="task" className="col-md-2 control-label">Task</label>
+							<label htmlFor="task" className="col-md-2 control-label">Tags</label>
 							<div className="col-md-10">
 								<input type="text" id="task" ref="task" className="form-control" placeholder="What do you need to do?" />
 							</div>
@@ -158,7 +163,7 @@ var TodoForm = React.createClass({
 	}
 });
 
-var AddStore = React.createClass({
+var DefaultForm = React.createClass({
     render: function(){
         return (
             <div className="container">
@@ -172,12 +177,12 @@ var AddStore = React.createClass({
                             <label>Reference</label>
                             <input className="form-control" type="text"/>
                         </div>
+                    </div>
+                    <div className="row">
                         <div className="col-md-4 form-group">
                             <label>Stamp</label>
                             <input className="form-control" type="text"/>
                         </div>
-                    </div>
-                    <div className="row">
                         <div className="col-md-4 form-group">
                             <label>Short</label>
                             <input className="form-control" type="text"/>
@@ -219,20 +224,19 @@ var AddStore = React.createClass({
                             </select>
                         </div>
                     </div>
-                    <div className="row form-group">
-                        <TodoBox />
-                    </div>
                 </div>
             </div>    
         )
     }
 })
 
-var StoreDetais = React.createClass({
+var StoreDetails = React.createClass({
     render: function(){
         return (
-            <div className="container">
-            <h3>Hello</h3>
+            <div className="container main">
+                <div className="row form-group">
+                    <TodoBox />
+                </div>
             </div>
         )
     }
@@ -243,10 +247,9 @@ export default class Store extends Component {
         return (
             <div className="container">
                 <h2>Add Store</h2>
-                <AddStore />
-                <StoreDetais />
-     
-            </div>
+                <DefaultForm />
+                <StoreDetails />
+             </div>
         );
     }
 }
