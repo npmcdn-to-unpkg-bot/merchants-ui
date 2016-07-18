@@ -6,8 +6,6 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Router, Route, IndexRoute, hashHistory } from 'react-router';
 
-
-
 //Components 
 import App from './components/Main.js';
 import Register from './components/Users/Register.js';
@@ -18,10 +16,9 @@ import ForgotPassword from './components/Users/ForgotPassword.js';
 import Store from './components/Store/AddStore.js';
 import Items from './components/Items/AddItems.js';
 import Stocks from './components/Stocks/AddStocks.js';
+import Products from './components/Products/AddProducts.js';
 
 const app = document.getElementById('app');
-
-
 
 // Render the main component into the dom
 ReactDOM.render(
@@ -35,6 +32,7 @@ ReactDOM.render(
             <Route path="stocks" component={Stocks}></Route>
             <Route path="items" component={Items}></Route>
             <Route path="store" component={Store}></Route>
+            <Route path="products" component={Products}></Route>       
         </Route>
     </Router>,
     app);

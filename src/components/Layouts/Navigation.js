@@ -46,6 +46,11 @@ export default class Navigation extends Component {
                                             <label>Stocks</label>
                                         </Link>
                                     </li>
+                                    <li>
+                                        <Link to="products">
+                                            <label>Products</label>
+                                        </Link>
+                                    </li>
                                 </ul>
                             </li>
                         </ul>

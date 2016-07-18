@@ -1,3 +1,24 @@
 // Place your settings in this file to overwrite default and user settings.
 {
+    //Editor Layout
+    "editor.cursorStyle": "block",
+    "editor.lineHeight": 24,
+    "editor.wrappingColumn": 150,
+    "editor.mouseWheelZoom": true,
+    "editor.fontFamily": "Inconsolata-g",
+    "editor.renderIndentGuides": true,
+
+    //Disable Realtime Semantic Error 
+    //For Readability Purposes
+    "eslint.enable": false,
+    "jshint.enable": false,
+    "javascript.validate.enable": false,
+
+    //Terminal
+    "terminal.integrated.fontSize": 12,
+    "terminal.integrated.shell.windows": "D:\\Cmder.exe",
+
+
+    //PHP 
+    "php.validate.executablePath": "C:\\xampp\\php\\php.exe"
 }
