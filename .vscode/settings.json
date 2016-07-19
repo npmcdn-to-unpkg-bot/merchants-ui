@@ -5,7 +5,7 @@
     "editor.lineHeight": 24,
     "editor.wrappingColumn": 100,
     "editor.mouseWheelZoom": true,
-    "editor.fontFamily": "Inconsolata-g",
+    "editor.fontFamily": "Menlo, Monaco, 'Courier New', monospace",
     "editor.renderIndentGuides": true,
 
     //Disable Realtime Semantic Error 

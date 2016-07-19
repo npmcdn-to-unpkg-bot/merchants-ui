@@ -1,33 +1,36 @@
 import React, {Component} from 'react';
 import { Link } from 'react-router';
+import { render } from "react-dom";
+import Form from "react-jsonschema-form";
 
-var TodoBox = React.createClass({
+
+var ArrayBox = React.createClass({
 	getInitialState: function () {
 		return {
 			data: [
-				{'id':'00001','task':'Tag 1','complete':'false'},
-				{'id':'00002','task':'Tag 2','complete':'false'},
-                {'id':'00003','task':'Tag 3','complete':'false'}
+				{ 'id': '00001', 'task': 'Tag 1', 'complete': 'false' },
+				{ 'id': '00002', 'task': 'Tag 2', 'complete': 'false' },
+                { 'id': '00003', 'task': 'Tag 3', 'complete': 'false' }
 			]
 		};
 	},
 	generateId: function () {
-		return Math.floor(Math.random()*90000) + 10000;
+		return Math.floor(Math.random() * 90000) + 10000;
 	},
 	handleNodeRemoval: function (nodeId) {
 		var data = this.state.data;
 		data = data.filter(function (el) {
 			return el.id !== nodeId;
 		});
-		this.setState({data});
+		this.setState({ data });
 		return;
 	},
 	handleSubmit: function (task) {
 		var data = this.state.data;
 		var id = this.generateId().toString();
 		var complete = 'false';
-		data = data.concat([{id, task, complete}]);
-		this.setState({data});
+		data = data.concat([{ id, task, complete }]);
+		this.setState({ data });
 	},
 	handleToggleComplete: function (nodeId) {
 		var data = this.state.data;
@@ -37,19 +40,19 @@ var TodoBox = React.createClass({
 				break;
 			}
 		}
-		this.setState({data});
+		this.setState({ data });
 		return;
 	},
-	render: function() {
+	render: function () {
 		return (
             <div className="row">
                 <div className="col-md-4">
-                    <TodoForm onTaskSubmit={this.handleSubmit} />
+                    <ArrayForm onTaskSubmit={this.handleSubmit} />
                 </div>
                 <div className="col-md-8">
-                    <TodoList 
-                        data={this.state.data} 
-                        removeNode={this.handleNodeRemoval} 
+                    <ArrayList
+                        data={this.state.data}
+                        removeNode={this.handleNodeRemoval}
                         toggleComplete={this.handleToggleComplete} />
                 </div>
             </div>
@@ -57,7 +60,7 @@ var TodoBox = React.createClass({
 	}
 });
 
-var TodoList = React.createClass({
+var ArrayList = React.createClass({
 	removeNode: function (nodeId) {
 		this.props.removeNode(nodeId);
 		return;
@@ -66,18 +69,18 @@ var TodoList = React.createClass({
 		this.props.toggleComplete(nodeId);
 		return;
 	},
-	render: function() {
+	render: function () {
 		var listNodes = this.props.data.map(function (listItem) {
 			return (
-				<TodoItem
-                     key={listItem.id} 
-                     nodeId={listItem.id} 
-                     task={listItem.task} 
-                     complete={listItem.complete} 
-                     removeNode={this.removeNode} 
-                     toggleComplete={this.toggleComplete} />
+				<ArrayItems
+					key={listItem.id}
+					nodeId={listItem.id}
+					task={listItem.task}
+					complete={listItem.complete}
+					removeNode={this.removeNode}
+					toggleComplete={this.toggleComplete} />
 			);
-		},this);
+		}, this);
 		return (
 			<ul className="list-group">
 				{listNodes}
@@ -86,7 +89,7 @@ var TodoList = React.createClass({
 	}
 });
 
-var TodoItem = React.createClass({
+var ArrayItems = React.createClass({
 	removeNode: function (e) {
 		e.preventDefault();
 		this.props.removeNode(this.props.nodeId);
@@ -98,9 +101,9 @@ var TodoItem = React.createClass({
 		return;
 	},
 	updateClass: function () {
-		
+
 	},
-	render: function() {
+	render: function () {
 		var classes = 'input-tags list-group-item clearfix';
 		if (this.props.complete === 'true') {
 			classes = classes + 'input-tags list-group-item-success';
@@ -116,19 +119,19 @@ var TodoItem = React.createClass({
                     </button>
                     // Check Button
                      */}
-                     <button 
-                        type="button" 
-                        className="btn btn-xs btn-danger img-circle" 
+					<button
+                        type="button"
+                        className="btn btn-xs btn-danger img-circle"
                         onClick={this.removeNode}>
                         &#xff38;
-                        </button>
+					</button>
 				</div>
 			</li>
 		);
 	}
 });
 
-var TodoForm = React.createClass({
+var ArrayForm = React.createClass({
 	doSubmit: function (e) {
 		e.preventDefault();
 		var task = this.refs.task.value.trim();
@@ -139,15 +142,15 @@ var TodoForm = React.createClass({
 		this.refs.task.value = '';
 		return;
 	},
-	render: function() {
+	render: function () {
 		return (
 			<div className="commentForm vert-offset-top-2">
 				<div className="clearfix">
-					<form className="todoForm form-horizontal" onSubmit={this.doSubmit}>
+					<form className="ArrayForm form-horizontal" onSubmit={this.doSubmit}>
 						<div className="form-group">
 							<label htmlFor="task" className="col-md-2 control-label">Tags</label>
 							<div className="col-md-10">
-								<input type="text" id="task" ref="task" className="form-control" placeholder="What do you need to do?" />
+								<input type="text" id="task" ref="task" className="form-control"/>
 							</div>
 						</div>
 						<div className="row">
@@ -162,13 +165,12 @@ var TodoForm = React.createClass({
 	}
 });
 
-
 var DefaultForm = React.createClass({
     render: function () {
         return (
             <div className="panel panel-default">
                 <div className="panel-heading">
-                    <h3 className="panel-title">Merchant Details</h3>
+                    <h3 className="panel-title">Merchant Profile</h3>
                 </div>
                 <div className="panel-body">
                     <div className="row">
@@ -214,7 +216,7 @@ var DefaultForm = React.createClass({
                         </div>
                     </div>
                     <div className="row">
-                        
+
                         <div className="col-md-4 form-group">
                             <label>Model</label>
                             <input className="form-control" type="text"/>
@@ -230,29 +232,115 @@ var DefaultForm = React.createClass({
                         </div>
                     </div>
                     <hr/>
-                    <TodoBox />
+                    <ArrayBox />
                 </div>
             </div>
         )
     }
-})
+});
 
-var MerchantDetails = React.createClass({
-    render: function() {
+var BranchDetails = React.createClass({
+    render: function () {
         return (
-            <div className="row">
-            <h3>Merchant Details</h3>
-            </div>
-        )
-    }
-})
+			<div className="panel panel-default">
+				<div className="panel-heading">
+					<h3 className="panel-title">Branch Details</h3>
+				</div>
+				<div className="panel-body">
+					<div className="row">
+						<div className="col-md-4 form-group">
+							<label>Branch Name</label>
+							<input type="text" className="form-control"/>
+						</div>
+						<div className="col-md-4 form-group">
+							<label>Branch Title</label>
+							<input type="text" className="form-control"/>
+						</div>
+						<div className="col-md-4 form-group">
+							<label>Branch Store</label>
+							<input type="text" className="form-control"/>
+						</div>
+					</div>
+					<hr/>
+					<div className="row">
+						<div className="col-md-4 form-group">
+							<label>Group Name</label>
+							<input type="text" className="form-control"/>
+						</div>
+						<div className="col-md-4 form-group">
+							<label>Store</label>
+							<input type="text" className="form-control"/>
+						</div>
+						<div className="col-md-4 form-group">
+							<label>Logo</label>
+							<div className="input-group">
+								<input type="text" className="form-control"/>
+								<span className="input-group-btn">
+									<button className="btn" type="button">Upload</button>
+								</span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		)
+	}
+});
+
+var LocationDetails = React.createClass({
+	render: function () {
+		return (
+			<div className="panel panel-default">
+				<div className="panel-heading">
+					<h3 className="panel-title">Location Details</h3>
+				</div>
+				<div className="panel-body">
+					<div className="row">
+						<div className="col-md-4 form-group">
+							<label>Address</label>
+							<input type="text" className="form-control"/>
+						</div>
+						<div className="col-md-4 form-group">
+							<label>Latitude</label>
+							<input type="text" className="form-control"/>
+						</div>
+						<div className="col-md-4 form-group">
+							<label>Longitude</label>
+							<input type="text" className="form-control"/>
+						</div>
+						<div className="col-md-4 form-group">
+							<label>Point</label>
+							<input type="text" className="form-control"/>
+						</div>
+						<div className="col-md-4 form-group">
+							<label>Region</label>
+							<input type="text" className="form-control"/>
+						</div>
+						<div className="col-md-4 form-group">
+							<label>Country</label>
+							<input type="text" className="form-control"/>
+						</div>
+					</div>
+				</div>
+			</div>
+		)
+	}
+});
+
+
+
+
+
 export default class Merchants extends Component {
-    render() {
+	render() {
         return (
             <div className="container">
                 <h2>Add Merchant</h2>
                 <DefaultForm />
-                <MerchantDetails />
+                <BranchDetails />
+				<LocationDetails />
+				<div className="well">
+				</div>
             </div>
         );
     }

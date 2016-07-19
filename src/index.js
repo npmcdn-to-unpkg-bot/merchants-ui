@@ -18,6 +18,7 @@ import Items from './components/Items/AddItems.js';
 import Stocks from './components/Stocks/AddStocks.js';
 import Products from './components/Products/AddProducts.js';
 
+
 const app = document.getElementById('app');
 
 // Render the main component into the dom
