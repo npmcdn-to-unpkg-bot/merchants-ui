@@ -7,11 +7,7 @@ import Form from "react-jsonschema-form";
 var ArrayBox = React.createClass({
 	getInitialState: function () {
 		return {
-			data: [
-				{ 'id': '00001', 'task': 'Tag 1', 'complete': 'false' },
-				{ 'id': '00002', 'task': 'Tag 2', 'complete': 'false' },
-                { 'id': '00003', 'task': 'Tag 3', 'complete': 'false' }
-			]
+			data: []
 		};
 	},
 	generateId: function () {
@@ -50,10 +46,10 @@ var ArrayBox = React.createClass({
                     <ArrayForm onTaskSubmit={this.handleSubmit} />
                 </div>
                 <div className="col-md-8">
-                    <ArrayList
+                   <ArrayList
                         data={this.state.data}
                         removeNode={this.handleNodeRemoval}
-                        toggleComplete={this.handleToggleComplete} />
+                        toggleComplete={this.handleToggleComplete}/>
                 </div>
             </div>
 		);
@@ -148,7 +144,7 @@ var ArrayForm = React.createClass({
 				<div className="clearfix">
 					<form className="ArrayForm form-horizontal" onSubmit={this.doSubmit}>
 						<div className="form-group">
-							<label htmlFor="task" className="col-md-2 control-label">Tags</label>
+							<label htmlFor="task" className="col-md-2 control-label"></label>
 							<div className="col-md-10">
 								<input type="text" id="task" ref="task" className="form-control"/>
 							</div>
@@ -232,7 +228,13 @@ var DefaultForm = React.createClass({
                         </div>
                     </div>
                     <hr/>
+					<label htmlFor="">Merchant Tags</label>
                     <ArrayBox />
+					<hr/>
+					<button className="btn btn-primary">Submit</button>
+					<hr/>
+					<div className="well">
+					</div>
                 </div>
             </div>
         )
@@ -248,18 +250,26 @@ var BranchDetails = React.createClass({
 				</div>
 				<div className="panel-body">
 					<div className="row">
-						<div className="col-md-4 form-group">
+						<div className="col-md-3 form-group">
 							<label>Branch Name</label>
 							<input type="text" className="form-control"/>
 						</div>
-						<div className="col-md-4 form-group">
+						<div className="col-md-3 form-group">
 							<label>Branch Title</label>
 							<input type="text" className="form-control"/>
 						</div>
-						<div className="col-md-4 form-group">
+						<div className="col-md-3 form-group">
 							<label>Branch Store</label>
 							<input type="text" className="form-control"/>
 						</div>
+						<div className="col-md-3 form-group">
+                            <label>Status</label>
+                            <select className="form-control">
+                                <option>Disabled</option>
+                                <option>Remove</option>
+                                <option>Active</option>
+                            </select>
+                        </div>
 					</div>
 					<hr/>
 					<div className="row">
@@ -327,20 +337,69 @@ var LocationDetails = React.createClass({
 	}
 });
 
+var ImagesDetails = React.createClass({
+	render: function () {
+		return (
+			<div className="panel panel-default">
+				<div className="panel-heading">
+					<h3 className="panel-title">Images Details</h3>
+				</div>
+				<div className="panel-body">
+					<label>Images</label>
+					<ArrayBox />
+				</div>
+			</div>
+		)
+	}
+});
 
+var PaymentDetails = React.createClass({
+	render: function () {
+		return (
+			<div className="panel panel-default">
+				<div className="panel-heading">
+					<h3 className="panel-title">Payment Details</h3>
+				</div>
+				<div className="panel-body">
+					<label>Payment</label>
+					<ArrayBox />
+					<label>Discount</label>
+					<ArrayBox />
+				</div>
+			</div>
+		)
+	}
+});
 
-
+var StaffDetails = React.createClass({
+	render: function () {
+		return (
+			<div className="panel panel-default">
+				<div className="panel-heading">
+					<h3 className="panel-title">Staff Details</h3>
+				</div>
+				<div className="panel-body">
+					<label>Staff</label>
+					<ArrayBox />
+					<hr/>
+					<label>Owner</label>
+					<ArrayBox />
+				</div>
+			</div>
+		)
+	}
+});
 
 export default class Merchants extends Component {
 	render() {
         return (
             <div className="container">
-                <h2>Add Merchant</h2>
                 <DefaultForm />
                 <BranchDetails />
 				<LocationDetails />
-				<div className="well">
-				</div>
+				<ImagesDetails />
+				<StaffDetails />
+				<PaymentDetails />
             </div>
         );
     }
