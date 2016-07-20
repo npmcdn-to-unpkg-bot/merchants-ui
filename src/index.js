@@ -11,7 +11,7 @@ import App from './components/Main.js';
 import Register from './components/Users/Register.js';
 import Home from './components/Home.js';
 import Login from './components/Users/Login.js';
-import Merchants from './components/Merchants/AddMerchant.js';
+import Merchant from './components/Merchants/Merchant.js';
 import ForgotPassword from './components/Users/ForgotPassword.js';
 import Store from './components/Store/AddStore.js';
 import Items from './components/Items/AddItems.js';
@@ -28,7 +28,7 @@ ReactDOM.render(
             <IndexRoute component={Home}></IndexRoute>
             <Route path="login" component={Login}></Route>
             <Route path="register" component={Register}></Route>
-            <Route path="merchants" component={Merchants}></Route>
+            <Route path="merchants" component={Merchant}></Route>
             <Route path="forgot-password" component={ForgotPassword}></Route>
             <Route path="stocks" component={Stocks}></Route>
             <Route path="items" component={Items}></Route>

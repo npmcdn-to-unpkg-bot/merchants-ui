@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
 import { Link } from 'react-router';
-import { render } from "react-dom";
-import Form from "react-jsonschema-form";
+import { render } from 'react-dom';
+import Form from 'react-jsonschema-form';
+import _ from 'lodash';
 
 
 var ArrayBox = React.createClass({
@@ -46,7 +47,7 @@ var ArrayBox = React.createClass({
                     <ArrayForm onTaskSubmit={this.handleSubmit} />
                 </div>
                 <div className="col-md-8">
-                   <ArrayList
+					<ArrayList
                         data={this.state.data}
                         removeNode={this.handleNodeRemoval}
                         toggleComplete={this.handleToggleComplete}/>
@@ -162,7 +163,51 @@ var ArrayForm = React.createClass({
 });
 
 var DefaultForm = React.createClass({
-    render: function () {
+	getDefaultProps: function () {
+		return {
+			merchant: {}
+		}
+	},
+	getInitialState: function () {
+		return {
+			hash: '',
+			reference: '',
+			stamp: '',
+			short: '',
+			code: '',
+			path: '',
+			name: '',
+			title: '',
+			description: '',
+			model: '',
+			status: '',
+		}
+	},
+	submit: function () {
+	},
+
+	handleChange: function (event) {
+		var object = {};
+		object[event.target.name] = event.target.value;
+		this.setState(object);
+	},
+	componentDidUpdate: function componentDidUpdate() {
+		this.props.handleChange({
+
+			'hash': this.state.hash,
+			'reference': this.state.reference,
+			'stamp': this.state.stamp,
+			'short': this.state.short,
+			'code': this.state.code,
+			'path': this.state.path,
+			'name': this.state.name,
+			'title': this.state.title,
+			'description': this.state.description,
+			'model': this.state.model,
+			'status': this.state.status
+		});
+	},
+	render: function () {
         return (
             <div className="panel panel-default">
                 <div className="panel-heading">
@@ -172,58 +217,114 @@ var DefaultForm = React.createClass({
                     <div className="row">
                         <div className="col-md-6 form-group">
                             <label>Hash</label>
-                            <input className="form-control" type="text"/>
+                            <input
+								name="hash"
+								className="form-control"
+								type="text"
+								value={this.state.hash}
+								onChange={this.handleChange}/>
                         </div>
                         <div className="col-md-6 form-group">
                             <label>Reference</label>
-                            <input className="form-control" type="text"/>
+                            <input
+								className="form-control"
+								type="text"
+								name="reference"
+								value={this.state.reference}
+								onChange={this.handleChange}/>
                         </div>
                     </div>
                     <div className="row">
                         <div className="col-md-6 form-group">
                             <label>Stamp</label>
-                            <input className="form-control" type="text"/>
+                            <input
+								name="stamp"
+								className="form-control"
+								type="text"
+								value={this.state.stamp}
+								onChange={this.handleChange}/>
                         </div>
                         <div className="col-md-6 form-group">
                             <label>Short</label>
-                            <input className="form-control" type="text"/>
+                            <input
+								className="form-control"
+								type="text"
+								name="short"
+								value={this.state.short}
+								onChange={this.handleChange}/>
                         </div>
                         <div className="col-md-6 form-group">
                             <label>Code</label>
-                            <input className="form-control" type="text"/>
+                            <input
+								className="form-control"
+								type="text"
+								name="code"
+								value={this.state.code}
+								onChange={this.handleChange}/>
                         </div>
                         <div className="col-md-6 form-group">
                             <label>Path</label>
-                            <input className="form-control" type="text"/>
+                            <input
+								className="form-control"
+								type="text"
+								name="path"
+								value={this.state.path}
+								onChange={this.handleChange}/>
                         </div>
                     </div>
                     <div className="row">
                         <div className="col-md-4 form-group">
                             <label>Name</label>
-                            <input className="form-control" type="text"/>
+                            <input
+								className="form-control"
+								type="text"
+								name="name"
+								value={this.state.name}
+								onChange={this.handleChange}/>
                         </div>
                         <div className="col-md-4 form-group">
                             <label>Title</label>
-                            <input className="form-control" type="text"/>
+                            <input
+								className="form-control"
+								type="text"
+								name="title"
+								value={this.state.title}
+								onChange={this.handleChange}/>
                         </div>
 						<div className="col-md-4 form-group">
                             <label>Description</label>
-                            <textarea className="form-control" type="text" rows="5"/>
+                            <textarea
+								className="form-control"
+								type="text"
+								rows="5"
+								name="description"
+								value={this.state.description}
+								onChange={this.handleChange}/>
                         </div>
                     </div>
                     <div className="row">
 
                         <div className="col-md-4 form-group">
                             <label>Model</label>
-                            <input className="form-control" type="text"/>
+                            <input
+								className="form-control"
+								type="text"
+								name="model"
+								value={this.state.model}
+								onChange={this.handleChange}/>
                         </div>
 
                         <div className="col-md-4 form-group">
                             <label>Status</label>
-                            <select className="form-control">
+                            <select
+								className="form-control"
+								name="status"
+								value={this.state.status}
+								onChange={this.handleChange}>
                                 <option>Disabled</option>
                                 <option>Remove</option>
                                 <option>Active</option>
+								<option>Pending</option>
                             </select>
                         </div>
                     </div>
@@ -231,7 +332,7 @@ var DefaultForm = React.createClass({
 					<label htmlFor="">Merchant Tags</label>
                     <ArrayBox />
 					<hr/>
-					<button className="btn btn-primary">Submit</button>
+
 					<hr/>
 					<div className="well">
 					</div>
@@ -242,6 +343,40 @@ var DefaultForm = React.createClass({
 });
 
 var BranchDetails = React.createClass({
+	getDefaultProps: function () {
+		return {
+			merchant: {}
+		}
+	},
+	getInitialState: function () {
+		return {
+			branchname: '',
+			branchtitle: '',
+			branchstore: '',
+			status: '',
+			groupname: '',
+			store: ''
+		}
+	},
+	submit: function () {
+	},
+
+	handleChange: function (event) {
+		var object = {};
+		object[event.target.name] = event.target.value;
+		this.setState(object);
+	},
+	componentDidUpdate: function componentDidUpdate() {
+		this.props.handleChange({
+
+			'branchname': this.state.branchname,
+			'branchtitle': this.state.branchtitle,
+			'branchstore': this.state.branchstore,
+			'status': this.state.status,
+			'groupname': this.state.groupname,
+			'store': this.state.store
+		});
+	},
     render: function () {
         return (
 			<div className="panel panel-default">
@@ -252,19 +387,38 @@ var BranchDetails = React.createClass({
 					<div className="row">
 						<div className="col-md-3 form-group">
 							<label>Branch Name</label>
-							<input type="text" className="form-control"/>
+							<input
+								type="text"
+								className="form-control"
+								name="branchname"
+								value={this.state.branchname}
+								onChange={this.handleChange}/>
 						</div>
 						<div className="col-md-3 form-group">
 							<label>Branch Title</label>
-							<input type="text" className="form-control"/>
+							<input
+								type="text"
+								className="form-control"
+								name="branchtitle"
+								value={this.state.branchtitle}
+								onChange={this.handleChange}/>
 						</div>
 						<div className="col-md-3 form-group">
 							<label>Branch Store</label>
-							<input type="text" className="form-control"/>
+							<input
+								type="text"
+								className="form-control"
+								name="branchstore"
+								value={this.state.branchstore}
+								onChange={this.handleChange}/>
 						</div>
 						<div className="col-md-3 form-group">
                             <label>Status</label>
-                            <select className="form-control">
+                            <select
+								className="form-control"
+								name="status"
+								value={this.state.status}
+								onChange={this.handleChange}>
                                 <option>Disabled</option>
                                 <option>Remove</option>
                                 <option>Active</option>
@@ -275,11 +429,21 @@ var BranchDetails = React.createClass({
 					<div className="row">
 						<div className="col-md-4 form-group">
 							<label>Group Name</label>
-							<input type="text" className="form-control"/>
+							<input
+								type="text"
+								className="form-control"
+								name="groupname"
+								value={this.state.groupname}
+								onChange={this.handleChange}/>
 						</div>
 						<div className="col-md-4 form-group">
 							<label>Store</label>
-							<input type="text" className="form-control"/>
+							<input
+								type="text"
+								className="form-control"
+								name="store"
+								value={this.state.store}
+								onChange={this.handleChange}/>
 						</div>
 						<div className="col-md-4 form-group">
 							<label>Logo</label>
@@ -298,6 +462,39 @@ var BranchDetails = React.createClass({
 });
 
 var LocationDetails = React.createClass({
+	getDefaultProps: function () {
+		return {
+			merchant: {}
+		}
+	},
+	getInitialState: function () {
+		return {
+			address: '',
+			latitude: '',
+			longitude: '',
+			point: '',
+			region: '',
+			country: ''
+		}
+	},
+	submit: function () {
+	},
+
+	handleChange: function (event) {
+		var object = {};
+		object[event.target.name] = event.target.value;
+		this.setState(object);
+	},
+	componentDidUpdate: function componentDidUpdate() {
+		this.props.handleChange({
+			'address': this.state.address,
+			'latitude': this.state.latitude,
+			'longitude': this.state.longitude,
+			'point': this.state.point,
+			'region': this.state.region,
+			'country': this.state.country
+		});
+	},
 	render: function () {
 		return (
 			<div className="panel panel-default">
@@ -308,27 +505,57 @@ var LocationDetails = React.createClass({
 					<div className="row">
 						<div className="col-md-4 form-group">
 							<label>Address</label>
-							<input type="text" className="form-control"/>
+							<input
+								type="text"
+								className="form-control"
+								name="address"
+								value={this.state.address}
+								onChange={this.handleChange}/>
 						</div>
 						<div className="col-md-4 form-group">
 							<label>Latitude</label>
-							<input type="text" className="form-control"/>
+							<input
+								type="text"
+								className="form-control"
+								name="latitude"
+								value={this.state.latitude}
+								onChange={this.handleChange}/>
 						</div>
 						<div className="col-md-4 form-group">
 							<label>Longitude</label>
-							<input type="text" className="form-control"/>
+							<input
+								type="text"
+								className="form-control"
+								name="longitude"
+								value={this.state.longitude}
+								onChange={this.handleChange}/>
 						</div>
 						<div className="col-md-4 form-group">
 							<label>Point</label>
-							<input type="text" className="form-control"/>
+							<input
+								type="text"
+								className="form-control"
+								name="point"
+								value={this.state.point}
+								onChange={this.handleChange}/>
 						</div>
 						<div className="col-md-4 form-group">
 							<label>Region</label>
-							<input type="text" className="form-control"/>
+							<input
+								type="text"
+								className="form-control"
+								name="region"
+								value={this.state.region}
+								onChange={this.handleChange}/>
 						</div>
 						<div className="col-md-4 form-group">
 							<label>Country</label>
-							<input type="text" className="form-control"/>
+							<input
+								type="text"
+								className="form-control"
+								name="country"
+								value={this.state.country}
+								onChange={this.handleChange}/>
 						</div>
 					</div>
 				</div>
@@ -390,16 +617,108 @@ var StaffDetails = React.createClass({
 	}
 });
 
-export default class Merchants extends Component {
+export default class Merchant extends Component {
+	constructor(props) {
+		super(props);
+
+		this.merchant = {};
+		this.merchantList = {};
+	}
+	componentDidUpdate() {
+		console.log(this.props.merchant);
+	}
+
+	handleChange(merchant) {
+		if (merchant.hash) {
+			this.merchant['hash'] = merchant.hash;
+		}
+		if (merchant.reference) {
+			this.merchant['reference'] = merchant.reference;
+		}
+		if (merchant.stamp) {
+			this.merchant['stamp'] = merchant.stamp;
+		}
+		if (merchant.short) {
+			this.merchant['short'] = merchant.short;
+		}
+		if (merchant.code) {
+			this.merchant['code'] = merchant.code;
+		}
+		if (merchant.path) {
+			this.merchant['path'] = merchant.path;
+		}
+		if (merchant.name) {
+			this.merchant['name'] = merchant.name;
+		}
+		if (merchant.title) {
+			this.merchant['title'] = merchant.title;
+		}
+		if (merchant.description) {
+			this.merchant['description'] = merchant.description;
+		}
+		if (merchant.model) {
+			this.merchant['model'] = merchant.model;
+		}
+		if (merchant.branchname) {
+			this.merchant['branchname'] = merchant.branchname;
+		}
+		if (merchant.branchtitle) {
+			this.merchant['branchtitle'] = merchant.branchtitle;
+		}
+		if (merchant.branchstore) {
+			this.merchant['branchstore'] = merchant.branchstore;
+		}
+		if (merchant.status) {
+			this.merchant['status'] = merchant.status;
+		}
+		if (merchant.groupname) {
+			this.merchant['groupname'] = merchant.groupname;
+		}
+		if (merchant.store) {
+			this.merchant['store'] = merchant.status;
+		}
+		if (merchant.address) {
+			this.merchant['address'] = merchant.address;
+		}
+		if (merchant.latitude) {
+			this.merchant['latitude'] = merchant.latitude;
+		}
+		if (merchant.longitude) {
+			this.merchant['longitude'] = merchant.longitude;
+		}
+		if (merchant.point) {
+			this.merchant['point'] = merchant.point;
+		}
+		if (merchant.region) {
+			this.merchant['region'] = merchant.region;
+		}
+		if (merchant.country) {
+			this.merchant['country'] = merchant.country;
+		}
+	}
+
+	doSubmit() {
+		var merchant = _.cloneDeep(this.merchant);
+		this.merchantList[merchant.reference] = merchant;
+
+		console.log(this.merchantList);
+	}
+
 	render() {
         return (
             <div className="container">
-                <DefaultForm />
-                <BranchDetails />
-				<LocationDetails />
-				<ImagesDetails />
-				<StaffDetails />
-				<PaymentDetails />
+                <DefaultForm merchant={this.merchant} handleChange={this.handleChange.bind(this) }/>
+                <BranchDetails merchant={this.merchant} handleChange={this.handleChange.bind(this) }/>
+				<LocationDetails merchant={this.merchant} handleChange={this.handleChange.bind(this) }/>
+				<ImagesDetails merchant={this.merchant}/>
+				<StaffDetails merchant={this.merchant}/>
+				<PaymentDetails merchant={this.merchant}/>
+				<div className="well">
+					<pre>
+					{JSON.stringify(this.merchant)}
+					</pre>
+				</div>
+				<button className="btn btn-primary" onClick={this.doSubmit.bind(this) }>Submit</button>
             </div>
         );
     }

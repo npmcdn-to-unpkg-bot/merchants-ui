@@ -68,6 +68,7 @@
   "dependencies": {
     "core-js": "^2.0.0",
     "history": "^1.17.0",
+    "lodash": "^4.13.1",
     "normalize.css": "^4.0.0",
     "react": "^15.2.0",
     "react-bootstrap": "^0.29.5",
