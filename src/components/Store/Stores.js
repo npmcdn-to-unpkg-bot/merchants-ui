@@ -1,9 +1,6 @@
 import React, {Component} from 'react';
 import { Link } from 'react-router';
-import { render } from 'react-dom';
-import Form from 'react-jsonschema-form';
 import _ from 'lodash';
-
 
 var ArrayBox = React.createClass({
 	getInitialState: function () {
@@ -28,6 +25,7 @@ var ArrayBox = React.createClass({
 		var complete = 'false';
 		data = data.concat([{ id, task, complete }]);
 		this.setState({ data });
+
 	},
 	handleToggleComplete: function (nodeId) {
 		var data = this.state.data;
@@ -56,7 +54,6 @@ var ArrayBox = React.createClass({
 		);
 	}
 });
-
 var ArrayList = React.createClass({
 	removeNode: function (nodeId) {
 		this.props.removeNode(nodeId);
@@ -85,7 +82,6 @@ var ArrayList = React.createClass({
 		);
 	}
 });
-
 var ArrayItems = React.createClass({
 	removeNode: function (e) {
 		e.preventDefault();
@@ -109,13 +105,11 @@ var ArrayItems = React.createClass({
 			<li className={classes}>
 				{this.props.task}
 				<div className="pull-right tags-button" role="group">
-					{/*<button 
+					{/*	<button 
                         type="button" 
                         className="btn btn-xs btn-success img-circle" 
                         onClick={this.toggleComplete}>&#x2713;
-                    </button>
-                    // Check Button
-                     */}
+                    </button> */}
 					<button
                         type="button"
                         className="btn btn-xs btn-danger img-circle"
@@ -127,7 +121,6 @@ var ArrayItems = React.createClass({
 		);
 	}
 });
-
 var ArrayForm = React.createClass({
 	doSubmit: function (e) {
 		e.preventDefault();
@@ -138,10 +131,11 @@ var ArrayForm = React.createClass({
 		this.props.onTaskSubmit(task);
 		this.refs.task.value = '';
 		return;
+
 	},
 	render: function () {
 		return (
-			<div className="commentForm vert-offset-top-2">
+			<div className="vert-offset-top-2">
 				<div className="clearfix">
 					<form className="ArrayForm form-horizontal" onSubmit={this.doSubmit}>
 						<div className="form-group">
@@ -165,11 +159,12 @@ var ArrayForm = React.createClass({
 var DefaultForm = React.createClass({
 	getDefaultProps: function () {
 		return {
-			merchant: {}
+			store: {}
 		}
 	},
 	getInitialState: function () {
 		return {
+			storeTitle: '',
 			hash: '',
 			reference: '',
 			stamp: '',
@@ -180,12 +175,11 @@ var DefaultForm = React.createClass({
 			title: '',
 			description: '',
 			model: '',
-			status: '',
+			status: ''
 		}
 	},
 	submit: function () {
 	},
-
 	handleChange: function (event) {
 		var object = {};
 		object[event.target.name] = event.target.value;
@@ -193,7 +187,7 @@ var DefaultForm = React.createClass({
 	},
 	componentDidUpdate: function componentDidUpdate() {
 		this.props.handleChange({
-
+			'storeTitle': this.state.storeTitle,
 			'hash': this.state.hash,
 			'reference': this.state.reference,
 			'stamp': this.state.stamp,
@@ -211,10 +205,19 @@ var DefaultForm = React.createClass({
         return (
             <div className="panel panel-default">
                 <div className="panel-heading">
-                    <h3 className="panel-title">Merchant Profile</h3>
+                    <h3 className="panel-title">Store Profile</h3>
                 </div>
                 <div className="panel-body">
                     <div className="row">
+						<div className="col-md-8 form-group">
+							<label>Store Title</label>
+                            <input
+								name="storeTitle"
+								className="form-control"
+								type="text"
+								value={this.state.storeTitle}
+								onChange={this.handleChange}/>
+						</div>
                         <div className="col-md-6 form-group">
                             <label>Hash</label>
                             <input
@@ -329,13 +332,8 @@ var DefaultForm = React.createClass({
                         </div>
                     </div>
                     <hr/>
-					<label htmlFor="">Merchant Tags</label>
+					<label htmlFor="">Store Tags</label>
                     <ArrayBox />
-					<hr/>
-
-					<hr/>
-					<div className="well">
-					</div>
                 </div>
             </div>
         )
@@ -345,7 +343,7 @@ var DefaultForm = React.createClass({
 var BranchDetails = React.createClass({
 	getDefaultProps: function () {
 		return {
-			merchant: {}
+			store: {}
 		}
 	},
 	getInitialState: function () {
@@ -353,9 +351,7 @@ var BranchDetails = React.createClass({
 			branchname: '',
 			branchtitle: '',
 			branchstore: '',
-			status: '',
-			groupname: '',
-			store: ''
+			state: '',
 		}
 	},
 	submit: function () {
@@ -368,13 +364,9 @@ var BranchDetails = React.createClass({
 	},
 	componentDidUpdate: function componentDidUpdate() {
 		this.props.handleChange({
-
 			'branchname': this.state.branchname,
 			'branchtitle': this.state.branchtitle,
-			'branchstore': this.state.branchstore,
-			'status': this.state.status,
-			'groupname': this.state.groupname,
-			'store': this.state.store
+			'state': this.state.state
 		});
 	},
     render: function () {
@@ -385,7 +377,7 @@ var BranchDetails = React.createClass({
 				</div>
 				<div className="panel-body">
 					<div className="row">
-						<div className="col-md-3 form-group">
+						<div className="col-md-6 form-group">
 							<label>Branch Name</label>
 							<input
 								type="text"
@@ -394,7 +386,7 @@ var BranchDetails = React.createClass({
 								value={this.state.branchname}
 								onChange={this.handleChange}/>
 						</div>
-						<div className="col-md-3 form-group">
+						<div className="col-md-6 form-group">
 							<label>Branch Title</label>
 							<input
 								type="text"
@@ -403,48 +395,8 @@ var BranchDetails = React.createClass({
 								value={this.state.branchtitle}
 								onChange={this.handleChange}/>
 						</div>
-						<div className="col-md-3 form-group">
-							<label>Branch Store</label>
-							<input
-								type="text"
-								className="form-control"
-								name="branchstore"
-								value={this.state.branchstore}
-								onChange={this.handleChange}/>
-						</div>
-						<div className="col-md-3 form-group">
-                            <label>Status</label>
-                            <select
-								className="form-control"
-								name="status"
-								value={this.state.status}
-								onChange={this.handleChange}>
-                                <option>Disabled</option>
-                                <option>Remove</option>
-                                <option>Active</option>
-                            </select>
-                        </div>
 					</div>
-					<hr/>
 					<div className="row">
-						<div className="col-md-4 form-group">
-							<label>Group Name</label>
-							<input
-								type="text"
-								className="form-control"
-								name="groupname"
-								value={this.state.groupname}
-								onChange={this.handleChange}/>
-						</div>
-						<div className="col-md-4 form-group">
-							<label>Store</label>
-							<input
-								type="text"
-								className="form-control"
-								name="store"
-								value={this.state.store}
-								onChange={this.handleChange}/>
-						</div>
 						<div className="col-md-4 form-group">
 							<label>Logo</label>
 							<div className="input-group">
@@ -454,17 +406,30 @@ var BranchDetails = React.createClass({
 								</span>
 							</div>
 						</div>
+						<div className="col-md-4 form-group">
+							<label>State</label>
+							<select
+								className="form-control"
+								name="state"
+								value={this.state.state}
+								onChange={this.handleChange}>
+								<option>Open</option>
+								<option>Close</option>
+								<option>Down</option>
+								<option>Mainternance</option>
+							</select>
+						</div>
 					</div>
 				</div>
 			</div>
 		)
 	}
-});
+})
 
 var LocationDetails = React.createClass({
 	getDefaultProps: function () {
 		return {
-			merchant: {}
+			store: {}
 		}
 	},
 	getInitialState: function () {
@@ -580,24 +545,6 @@ var ImagesDetails = React.createClass({
 	}
 });
 
-var PaymentDetails = React.createClass({
-	render: function () {
-		return (
-			<div className="panel panel-default">
-				<div className="panel-heading">
-					<h3 className="panel-title">Payment Details</h3>
-				</div>
-				<div className="panel-body">
-					<label>Payment</label>
-					<ArrayBox />
-					<label>Discount</label>
-					<ArrayBox />
-				</div>
-			</div>
-		)
-	}
-});
-
 var StaffDetails = React.createClass({
 	render: function () {
 		return (
@@ -617,110 +564,158 @@ var StaffDetails = React.createClass({
 	}
 });
 
-export default class Merchant extends Component {
+var PaymentDetails = React.createClass({
+	render: function () {
+		return (
+			<div className="panel panel-default">
+				<div className="panel-heading">
+					<h3 className="panel-title">Payment Details</h3>
+				</div>
+				<div className="panel-body">
+					<label>Product</label>
+					<ArrayBox />
+					<hr/>
+					<label>Stock</label>
+					<ArrayBox />
+					<hr/>
+					<label>Payment</label>
+					<ArrayBox />
+					<hr/>
+					<label>Discount</label>
+					<ArrayBox />
+					<hr/>
+					<label>Product</label>
+					<ArrayBox />
+					<hr/>
+					<label>Charge</label>
+					<ArrayBox />
+				</div>
+			</div>
+		)
+	}
+});
+
+var ItemStore = React.createClass({
+	render: function () {
+		return (
+			<div className="panel panel-default">
+				<div className="panel-heading">
+					<h3 className="panel-title">Staff Details</h3>
+				</div>
+				<div className="panel-body">
+					<label>Item</label>
+					<ArrayBox />
+					<hr/>
+					<label>Stock</label>
+					<ArrayBox />
+					<hr/>
+					<label>Change</label>
+					<ArrayBox />
+					<hr/>
+					<label>Product</label>
+					<ArrayBox />
+				</div>
+			</div>
+		)
+	}
+})
+
+
+
+export default class Store extends Component {
 	constructor(props) {
 		super(props);
-
-		this.merchant = {};
-		this.merchantList = {};
+		this.store = {};
+		this.storeList = {};
 	}
 	componentDidUpdate() {
-		console.log(this.props.merchant);
 	}
-
-	handleChange(merchant) {
-		if (merchant.hash) {
-			this.merchant['hash'] = merchant.hash;
+	handleChange(store) {
+		if (store.storeTitle) {
+			this.store['storeTitle'] = store.storeTitle;
 		}
-		if (merchant.reference) {
-			this.merchant['reference'] = merchant.reference;
+		if (store.hash) {
+			this.store['hash'] = store.hash;
 		}
-		if (merchant.stamp) {
-			this.merchant['stamp'] = merchant.stamp;
+		if (store.reference) {
+			this.store['reference'] = store.reference;
 		}
-		if (merchant.short) {
-			this.merchant['short'] = merchant.short;
+		if (store.stamp) {
+			this.store['stamp'] = store.stamp;
 		}
-		if (merchant.code) {
-			this.merchant['code'] = merchant.code;
+		if (store.short) {
+			this.store['short'] = store.short;
 		}
-		if (merchant.path) {
-			this.merchant['path'] = merchant.path;
+		if (store.code) {
+			this.store['code'] = store.code;
 		}
-		if (merchant.name) {
-			this.merchant['name'] = merchant.name;
+		if (store.path) {
+			this.store['path'] = store.path;
 		}
-		if (merchant.title) {
-			this.merchant['title'] = merchant.title;
+		if (store.name) {
+			this.store['name'] = store.name;
 		}
-		if (merchant.description) {
-			this.merchant['description'] = merchant.description;
+		if (store.title) {
+			this.store['title'] = store.title;
 		}
-		if (merchant.model) {
-			this.merchant['model'] = merchant.model;
+		if (store.description) {
+			this.store['description'] = store.description;
 		}
-		if (merchant.branchname) {
-			this.merchant['branchname'] = merchant.branchname;
+		if (store.model) {
+			this.store['model'] = store.model;
 		}
-		if (merchant.branchtitle) {
-			this.merchant['branchtitle'] = merchant.branchtitle;
+		if (store.branchname) {
+			this.store['branchname'] = store.branchname;
 		}
-		if (merchant.branchstore) {
-			this.merchant['branchstore'] = merchant.branchstore;
+		if (store.branchtitle) {
+			this.store['branchtitle'] = store.branchtitle;
 		}
-		if (merchant.status) {
-			this.merchant['status'] = merchant.status;
+		if (store.branchstore) {
+			this.store['branchstore'] = store.branchstore;
 		}
-		if (merchant.groupname) {
-			this.merchant['groupname'] = merchant.groupname;
+		if (store.state) {
+			this.store['state'] = store.state;
 		}
-		if (merchant.store) {
-			this.merchant['store'] = merchant.status;
+		if (store.store) {
+			this.store['store'] = store.status;
 		}
-		if (merchant.address) {
-			this.merchant['address'] = merchant.address;
+		if (store.address) {
+			this.store['address'] = store.address;
 		}
-		if (merchant.latitude) {
-			this.merchant['latitude'] = merchant.latitude;
+		if (store.latitude) {
+			this.store['latitude'] = store.latitude;
 		}
-		if (merchant.longitude) {
-			this.merchant['longitude'] = merchant.longitude;
+		if (store.longitude) {
+			this.store['longitude'] = store.longitude;
 		}
-		if (merchant.point) {
-			this.merchant['point'] = merchant.point;
+		if (store.point) {
+			this.store['point'] = store.point;
 		}
-		if (merchant.region) {
-			this.merchant['region'] = merchant.region;
+		if (store.region) {
+			this.store['region'] = store.region;
 		}
-		if (merchant.country) {
-			this.merchant['country'] = merchant.country;
+		if (store.country) {
+			this.store['country'] = store.country;
 		}
 	}
-
 	doSubmit() {
-		var merchant = _.cloneDeep(this.merchant);
-		this.merchantList[merchant.reference] = merchant;
-
-		console.log(this.merchantList);
+		var store = _.cloneDeep(this.store);
+		this.storeList[store.storeTitle] = store;
+		console.log(this.storeList);
 	}
-
-	render() {
+    render() {
         return (
             <div className="container">
-                <DefaultForm merchant={this.merchant} handleChange={this.handleChange.bind(this) }/>
-                <BranchDetails merchant={this.merchant} handleChange={this.handleChange.bind(this) }/>
+                <DefaultForm merchant={this.merchant} handleChange={this.handleChange.bind(this) } />
+                <BranchDetails merchant={this.merchant} handleChange={this.handleChange.bind(this) } />
 				<LocationDetails merchant={this.merchant} handleChange={this.handleChange.bind(this) }/>
 				<ImagesDetails merchant={this.merchant}/>
 				<StaffDetails merchant={this.merchant}/>
 				<PaymentDetails merchant={this.merchant}/>
-				<div className="well">
-					<pre>
-					{JSON.stringify(this.merchant)}
-					</pre>
-				</div>
 				<button className="btn btn-primary" onClick={this.doSubmit.bind(this) }>Submit</button>
-            </div>
+			</div>
         );
     }
 }
+
 

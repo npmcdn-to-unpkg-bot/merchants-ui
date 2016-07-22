@@ -1,7 +1,7 @@
 // Place your settings in this file to overwrite default and user settings.
 {
     //Editor Layout
-    "editor.cursorStyle": "block",
+    "editor.cursorStyle": "line",
     "editor.lineHeight": 24,
     "editor.wrappingColumn": 100,
     "editor.mouseWheelZoom": true,

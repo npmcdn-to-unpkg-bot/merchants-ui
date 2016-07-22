@@ -11,11 +11,11 @@ import App from './components/Main.js';
 import Register from './components/Users/Register.js';
 import Home from './components/Home.js';
 import Login from './components/Users/Login.js';
-import Merchant from './components/Merchants/Merchant.js';
+import Merchant from './components/Merchants/Merchants.js';
 import ForgotPassword from './components/Users/ForgotPassword.js';
-import Store from './components/Store/AddStore.js';
+import Store from './components/Store/Stores.js';
 import Items from './components/Items/AddItems.js';
-import Stocks from './components/Stocks/AddStocks.js';
+import Stocks from './components/Stocks/Stocks.js';
 import Products from './components/Products/AddProducts.js';
 
 
