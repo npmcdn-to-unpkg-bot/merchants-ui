@@ -6,7 +6,6 @@ export default class Items extends Component {
         return (
             <div className="container">
                 <h2>Add Items</h2>
-                <AddItems />
             </div>
         );
     }

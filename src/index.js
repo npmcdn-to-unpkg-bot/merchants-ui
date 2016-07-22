@@ -14,9 +14,9 @@ import Login from './components/Users/Login.js';
 import Merchant from './components/Merchants/Merchants.js';
 import ForgotPassword from './components/Users/ForgotPassword.js';
 import Store from './components/Store/Stores.js';
-import Items from './components/Items/AddItems.js';
+import Items from './components/Items/Items.js';
 import Stocks from './components/Stocks/Stocks.js';
-import Products from './components/Products/AddProducts.js';
+import Products from './components/Products/Products.js';
 
 
 const app = document.getElementById('app');

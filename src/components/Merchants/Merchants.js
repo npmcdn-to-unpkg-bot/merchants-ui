@@ -728,7 +728,7 @@ export default class Merchant extends Component {
 				<PaymentDetails merchant={this.merchant}/>
 				<div className="well">
 					<pre>
-					{JSON.stringify(submitForm)}
+					{JSON.stringify(this.merchantList)}
 					</pre>
 				</div>
 				<button className="btn btn-primary" onClick={this.doSubmit.bind(this) }>Submit</button>
